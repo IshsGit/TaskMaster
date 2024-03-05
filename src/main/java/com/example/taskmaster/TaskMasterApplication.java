@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableScheduling // Enable scheduling annotations
+@EnableScheduling
 public class TaskMasterApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TaskMasterApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TaskMasterApplication.class, args);
+    }
 
 }

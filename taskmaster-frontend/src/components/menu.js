@@ -9,16 +9,20 @@ export const TaskManagerApp = defineComponent({
       { name: 'Walk the dog', completed: true },
     ]);
 
+    const isValidTask = (task) => task.trim().length > 0;
+
     const addTask = () => {
-      if (newTask.value.trim()) {
+      if (isValidTask(newTask.value)) {
         tasks.value.push({ name: newTask.value.trim(), completed: false });
         newTask.value = '';
       }
     };
 
-    const deleteTask = (index) => {
-      tasks.value.splice(index, 1);
+    const handleKeyup = (e) => {
+      if (e.key === 'Enter') addTask();
     };
+
+    const deleteTask = (index) => tasks.value.splice(index, 1);
 
     const toggleTaskCompletion = (index) => {
       tasks.value[index].completed = !tasks.value[index].completed;
@@ -31,13 +35,16 @@ export const TaskManagerApp = defineComponent({
           type="text"
           v-model={newTask.value}
           placeholder="Add a new task"
-          onKeyup={(e) => (e.key === 'Enter' ? addTask() : null)}
+          onKeyup={handleKeyup}
         />
         <button onClick={addTask}>Add Task</button>
         <ul class="task-list">
           {tasks.value.map((task, index) => (
             <li key={index} class={{ completed: task.completed }}>
-              <span onClick={() => toggleTaskCompletion(index)} class="task-name">
+              <span
+                onClick={() => toggleTaskCompletion(index)}
+                class="task-name"
+              >
                 {task.name}
               </span>
               <button onClick={() => deleteTask(index)} class="delete-btn">

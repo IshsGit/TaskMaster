@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import TaskManagerApp from './components/TaskManagerApp';
+import { TaskManagerApp } from './components/TaskManagerApp';
 
 export default defineComponent({
   name: 'App',

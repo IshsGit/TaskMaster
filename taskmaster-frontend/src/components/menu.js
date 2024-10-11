@@ -9,23 +9,22 @@ export const TaskManagerApp = defineComponent({
       { name: 'Walk the dog', completed: true },
     ]);
 
-    const isValidTask = (task) => task.trim().length > 0;
-
     const addTask = () => {
-      if (isValidTask(newTask.value)) {
-        tasks.value.push({ name: newTask.value.trim(), completed: false });
+      const trimmedTask = newTask.value.trim();
+      if (trimmedTask) {
+        tasks.value.push({ name: trimmedTask, completed: false });
         newTask.value = '';
       }
-    };
-
-    const handleKeyup = (e) => {
-      if (e.key === 'Enter') addTask();
     };
 
     const deleteTask = (index) => tasks.value.splice(index, 1);
 
     const toggleTaskCompletion = (index) => {
       tasks.value[index].completed = !tasks.value[index].completed;
+    };
+
+    const handleKeyup = (e) => {
+      if (e.key === 'Enter') addTask();
     };
 
     return () => (
@@ -38,22 +37,4 @@ export const TaskManagerApp = defineComponent({
           onKeyup={handleKeyup}
         />
         <button onClick={addTask}>Add Task</button>
-        <ul class="task-list">
-          {tasks.value.map((task, index) => (
-            <li key={index} class={{ completed: task.completed }}>
-              <span
-                onClick={() => toggleTaskCompletion(index)}
-                class="task-name"
-              >
-                {task.name}
-              </span>
-              <button onClick={() => deleteTask(index)} class="delete-btn">
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  },
-});
+        <ul class

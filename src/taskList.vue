@@ -21,7 +21,16 @@ export default defineComponent({
     return () => (
       <ul class="task-list">
         {props.tasks.map((task, index) => (
-     
+          <li key={index} class={{ completed: task.completed }}>
+            <span
+              onClick={() => props.toggleTaskCompletion(index)}
+              class="task-name"
+            >
+              {task.name}
+            </span>
+            <button onClick={() => props.deleteTask(index)} class="delete-btn">
+              Delete
+            </button>
           </li>
         ))}
       </ul>

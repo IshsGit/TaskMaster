@@ -13,36 +13,42 @@ export const TaskManagerApp = defineComponent({
       { name: 'Walk the dog', completed: true },
     ]);
 
+    // Add a new task if the input is not empty
     const addTask = () => {
-      const trimmedTask = newTask.value.trim();
-      if (trimmedTask) {
-        tasks.value.push({ name: trimmedTask, completed: false });
+      const taskName = newTask.value.trim();
+      if (taskName) {
+        tasks.value.push({ name: taskName, completed: false });
         newTask.value = '';
       }
     };
 
+    // Remove a task by its index
     const deleteTask = (index) => tasks.value.splice(index, 1);
 
+    // Toggle the completion status of a task
     const toggleTaskCompletion = (index) => {
       tasks.value[index].completed = !tasks.value[index].completed;
     };
 
+    // Add task on pressing 'Enter' key
     const handleKeyup = (e) => {
       if (e.key === 'Enter') addTask();
     };
 
     return () => (
-      <div class="taskmaster">
-        <h1>Taskmaster</h1>
-        <input
-          type="text"
-          v-model={newTask.value}
-          placeholder="Add a new task"
-          onKeyup={handleKeyup}
-        />
-        <button onClick={addTask}>Add Task</button>
+      <div class="taskmanager">
+        <h1>Task Manager</h1>
+        <div class="input-group">
+          <input
+            type="text"
+            v-model={newTask.value}
+            placeholder="Add a new task"
+            onKeyup={handleKeyup}
+          />
+          <button onClick={addTask}>Add Task</button>
+        </div>
 
-        {/* Use the TaskList component */}
+        {/* Render the TaskList component */}
         <TaskList
           tasks={tasks.value}
           toggleTaskCompletion={toggleTaskCompletion}

@@ -1,6 +1,6 @@
 <template>
     <div class="task-search">
-      <input v-model="searchQuery" @input="onSearch" placeholder="Search tasks..." />
+      <input v-model="searchQuery" @input="emitSearch" placeholder="Search tasks..." />
     </div>
   </template>
   
@@ -10,16 +10,14 @@
   export default defineComponent({
     name: 'TaskSearch',
     emits: ['search'],
-    setup(props, { emit }) {
+    setup(_, { emit }) {
       const searchQuery = ref('');
   
-      const onSearch = () => {
-        emit('search', searchQuery.value);
-      };
+      const emitSearch = () => emit('search', searchQuery.value);
   
       return {
         searchQuery,
-        onSearch,
+        emitSearch,
       };
     },
   });
